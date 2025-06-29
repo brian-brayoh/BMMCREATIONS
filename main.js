@@ -16,29 +16,60 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Mobile Navigation Toggle
+    /**
+     * Mobile Menu Toggle - Simplified Version
+     */
+    // Mobile menu elements
     const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
+    const mainNav = document.querySelector('.main-nav');
     const body = document.body;
-    
-    if (hamburger && navMenu) {
-        hamburger.addEventListener('click', function() {
-            this.classList.toggle('active');
-            navMenu.classList.toggle('active');
-            body.classList.toggle('mobile-nav-active');
-        });
 
-        // Close mobile menu when clicking on a nav link
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                if (navMenu.classList.contains('active')) {
-                    hamburger.classList.remove('active');
-                    navMenu.classList.remove('active');
-                    body.classList.remove('mobile-nav-active');
-                }
-            });
-        });
+    // Check if elements exist
+    if (!hamburger || !mainNav) return;
+
+    // Toggle menu function
+    function toggleMenu() {
+        console.log('Toggle menu called'); // Debug log
+        hamburger.classList.toggle('active');
+        mainNav.classList.toggle('active');
+        body.classList.toggle('mobile-nav-active');
     }
+
+    // Toggle on hamburger click
+    hamburger.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('Hamburger clicked'); // Debug log
+        toggleMenu();
+    });
+
+    // Close menu when clicking on a link
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            console.log('Nav link clicked'); // Debug log
+            if (mainNav.classList.contains('active')) {
+                toggleMenu();
+            }
+        });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (mainNav.classList.contains('active') && 
+            !mainNav.contains(e.target) && 
+            !hamburger.contains(e.target)) {
+            console.log('Clicked outside menu'); // Debug log
+            toggleMenu();
+        }
+    });
+
+    // Close menu with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && mainNav.classList.contains('active')) {
+            console.log('Escape key pressed'); // Debug log
+            toggleMenu();
+        }
+    });
 
     // Sticky Header on Scroll
     const header = document.getElementById('header');
