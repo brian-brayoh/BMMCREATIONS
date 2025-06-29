@@ -17,9 +17,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     /**
-     * Mobile Menu Toggle - Simplified Version
+     * Mobile Menu Toggle
      */
-    // Mobile menu elements
     const hamburger = document.querySelector('.hamburger');
     const mainNav = document.querySelector('.main-nav');
     const body = document.body;
@@ -29,24 +28,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Toggle menu function
     function toggleMenu() {
-        console.log('Toggle menu called'); // Debug log
+        console.log('Toggling menu');
         hamburger.classList.toggle('active');
         mainNav.classList.toggle('active');
         body.classList.toggle('mobile-nav-active');
+        
+        // Update aria-expanded attribute
+        const isExpanded = hamburger.getAttribute('aria-expanded') === 'true' || false;
+        hamburger.setAttribute('aria-expanded', !isExpanded);
     }
 
     // Toggle on hamburger click
     hamburger.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
-        console.log('Hamburger clicked'); // Debug log
+        console.log('Hamburger clicked');
         toggleMenu();
     });
 
     // Close menu when clicking on a link
     document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            console.log('Nav link clicked'); // Debug log
+        link.addEventListener('click', function(e) {
+            console.log('Nav link clicked');
             if (mainNav.classList.contains('active')) {
                 toggleMenu();
             }
@@ -58,15 +61,17 @@ document.addEventListener('DOMContentLoaded', function() {
         if (mainNav.classList.contains('active') && 
             !mainNav.contains(e.target) && 
             !hamburger.contains(e.target)) {
-            console.log('Clicked outside menu'); // Debug log
-            toggleMenu();
+            console.log('Clicked outside menu');
+            if (mainNav.classList.contains('active')) {
+                toggleMenu();
+            }
         }
     });
 
     // Close menu with Escape key
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && mainNav.classList.contains('active')) {
-            console.log('Escape key pressed'); // Debug log
+            console.log('Escape key pressed');
             toggleMenu();
         }
     });
