@@ -2,7 +2,8 @@
 session_start();
 // Check admin authentication
 if (!isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
-    header('Location: login.php');
+    // Instead of header redirect, output JavaScript for client-side redirect
+    echo '<script>window.location.href = "login.php";</script>';
     exit();
 }
 

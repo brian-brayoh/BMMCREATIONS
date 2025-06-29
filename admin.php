@@ -7,6 +7,8 @@ $admin_password = 'changeme'; // Change this password!
 if (!isset($_SESSION['logged_in'])) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['password'] === $admin_password) {
         $_SESSION['logged_in'] = true;
+        echo '<script>window.location.href = "admin.php";</script>';
+        exit();
     } else {
         echo '<form method="POST" style="margin:40px auto;max-width:300px;text-align:center;">
             <h2>Admin Login</h2>
