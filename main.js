@@ -162,6 +162,31 @@ document.addEventListener('DOMContentLoaded', function() {
     initLazyLoading();
     initBackToTop();
     initTestimonialsSlider();
+
+    /**
+     * Handle PHP to HTML redirections for GitHub Pages
+     */
+    function handlePhpToHtmlRedirects() {
+        // Update all internal links with .php to .html
+        document.querySelectorAll('a[href$=".php"], a[href*=".php#"]').forEach(link => {
+            const url = new URL(link.href, window.location.origin);
+            // Only process internal links
+            if (url.origin === window.location.origin) {
+                link.href = link.href.replace(/\.php(?:#|$)/, '.html$&');
+            }
+        });
+
+        // Handle current URL if it has .php
+        if (window.location.href.includes('.php')) {
+            const newUrl = window.location.href.replace(/\.php(?:#|$)/, '.html$&');
+            if (newUrl !== window.location.href) {
+                window.history.replaceState(null, '', newUrl);
+            }
+        }
+    }
+
+    // Add PHP to HTML redirection handler
+    handlePhpToHtmlRedirects();
 });
 
 /**
