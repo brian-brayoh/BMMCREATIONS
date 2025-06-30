@@ -35,6 +35,44 @@
 }
 
 /*--------------------------------------------------------------
+# Global Background
+--------------------------------------------------------------*/
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    position: relative;
+    background: url('./BMMCREATIONS.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Background overlay */
+.background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.85);
+    z-index: -1;
+}
+
+/* Ensure content is above the overlay */
+body > *:not(.background-overlay) {
+    position: relative;
+    z-index: 1;
+}
+
+/* Ensure content sections have proper background */
+.section {
+    background-color: rgba(255, 255, 255, 0.95);
+    margin: 20px 0;
+    padding: 60px 0;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
 #header {
@@ -547,81 +585,96 @@ h1, h2, h3, h4, h5, h6 {
 --------------------------------------------------------------*/
 #hero {
     width: 100%;
-    min-height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
-                url('https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center center/cover no-repeat;
+    height: 100vh;
+    background: url('BMMCREATIONS.png') center/cover no-repeat fixed;
     position: relative;
-    padding: 100px 0 60px;
+    padding: 0;
+    overflow: hidden;
     display: flex;
     align-items: center;
-    text-align: center;
-    color: #fff;
+    justify-content: center;
 }
 
 .hero-container {
     position: relative;
     z-index: 2;
     width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
+    text-align: center;
 }
 
 .hero-content {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 15px;
+    padding: 40px 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     max-width: 800px;
     margin: 0 auto;
-    padding: 20px;
 }
 
 .hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
     margin: 0 0 20px 0;
-    font-size: 48px;
-    font-weight: 700;
+    color: #222;
     line-height: 1.2;
-    color: #fff;
 }
 
 .hero-content h2 {
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 30px;
-    font-size: 22px;
+    font-size: 1.5rem;
     font-weight: 300;
+    color: #444;
+    margin-bottom: 30px;
 }
 
-.hero-content .btn-get-started {
-    font-family: "Poppins", sans-serif;
-    font-weight: 500;
-    font-size: 16px;
-    letter-spacing: 1px;
-    display: inline-block;
-    padding: 12px 32px;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-    border: 2px solid #fff;
+.btn-get-started {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 40px;
+    background: var(--primary);
     color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
     text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.hero-content .btn-get-started:hover {
-    background: #fff;
-    color: #1f5297;
+.btn-get-started:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    background: var(--primary-dark);
 }
 
 /* Responsive Styles */
-@media (max-width: 991px) {
-    .hero-content h1 {
-        font-size: 36px;
+@media (max-width: 768px) {
+    .hero-content {
+        padding: 30px 20px;
+        margin: 0 15px;
     }
-    
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
     .hero-content h2 {
-        font-size: 18px;
+        font-size: 1.2rem;
     }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 576px) {
     .hero-content h1 {
-        font-size: 28px;
+        font-size: 2rem;
     }
-    
     .hero-content h2 {
-        font-size: 16px;
+        font-size: 1.1rem;
     }
 }
 
@@ -756,7 +809,7 @@ h1, h2, h3, h4, h5, h6 {
     background: #fff;
     border: none;
     border-radius: 50%;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -822,6 +875,32 @@ h1, h2, h3, h4, h5, h6 {
 /*--------------------------------------------------------------
 # Portfolio
 --------------------------------------------------------------*/
+#portfolio {
+    width: 100%;
+    padding: 100px 0;
+    background: url('BMMCREATIONS.png') center/cover no-repeat fixed;
+    position: relative;
+    overflow: hidden;
+}
+
+#portfolio::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.9);
+    z-index: 1;
+}
+
+.portfolio .section-title,
+.portfolio .portfolio-filter,
+.portfolio .portfolio-container {
+    position: relative;
+    z-index: 2;
+}
+
 .portfolio .portfolio-filter {
     padding: 0 0 20px 0;
     margin: 0 auto;
@@ -886,85 +965,113 @@ h1, h2, h3, h4, h5, h6 {
     overflow: hidden;
     transition: all 0.3s ease-in-out;
     border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     border: 1px solid var(--border);
+    background: #fff;
+    height: 250px; /* Fixed height for consistency */
 }
 
 .portfolio-wrap {
+    width: 100%;
+    height: 100%;
     position: relative;
     overflow: hidden;
     border-radius: 8px;
-    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: flex-end;
+    transition: all 0.3s ease;
+    background: url('BMMCREATIONS.png') center/cover no-repeat;
 }
 
-.portfolio-wrap img {
-    transition: all 0.3s ease-in-out;
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-}
-
-.portfolio-wrap:hover img {
-    transform: scale(1.05);
-}
-
-.portfolio-info {
+.portfolio-img-overlay {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 50%);
     opacity: 0;
-    transition: all 0.3s ease-in-out;
-    padding: 20px;
-    text-align: center;
-    color: var(--bg-white);
+    transition: all 0.3s ease;
+    z-index: 1;
 }
 
-.portfolio-wrap:hover .portfolio-info {
+.portfolio-info {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    transform: translateY(100%);
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.portfolio-item:hover .portfolio-img-overlay {
     opacity: 1;
 }
 
+.portfolio-item:hover .portfolio-info {
+    transform: translateY(0);
+}
+
 .portfolio-info h4 {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 5px;
-    color: var(--bg-white);
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 5px;
+    color: var(--secondary);
 }
 
 .portfolio-info p {
-    font-size: 14px;
-    margin-bottom: 15px;
-    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin: 0 0 10px;
 }
 
 .portfolio-links {
     display: flex;
-    gap: 15px;
+    gap: 10px;
 }
 
 .portfolio-links a {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 36px;
     height: 36px;
+    background: var(--primary);
+    color: #fff;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--bg-white);
-    transition: all 0.3s ease-in-out;
-    font-size: 16px;
+    transition: all 0.3s ease;
 }
 
 .portfolio-links a:hover {
-    background: var(--primary);
-    color: var(--bg-white);
+    background: var(--primary-dark);
     transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .portfolio-item {
+        height: 220px;
+    }
+}
+
+@media (max-width: 768px) {
+    .portfolio-item {
+        height: 200px;
+    }
+    
+    .portfolio-info {
+        padding: 15px;
+    }
+    
+    .portfolio-info h4 {
+        font-size: 1.1rem;
+    }
+    
+    .portfolio-info p {
+        font-size: 0.85rem;
+    }
 }
 
 /*--------------------------------------------------------------
