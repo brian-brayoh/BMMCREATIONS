@@ -22,11 +22,14 @@ jobs:
           node-version: '20'
           cache: 'npm'
           
-      - name: Install dependencies
-        run: npm ci
+      - name: Install dependencies (skip optional)
+        run: npm ci --no-optional
         
       - name: Build
-        run: npm run build
+        run: |
+          # Remove lovable-tagger from dependencies if it exists
+          npm remove lovable-tagger --save-dev || true
+          npm run build
         
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

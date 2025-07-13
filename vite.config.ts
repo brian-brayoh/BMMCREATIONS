@@ -1,16 +1,27 @@
 import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
-import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-  // Load env file based on `mode` in the current directory.
-  // This ensures we get the correct environment variables
   const env = loadEnv(mode, process.cwd(), '');
   
+  // Only import lovable-tagger if it exists
+  const plugins = [
+    react()
+  ];
+
+  // Add lovable-tagger only in development mode
+  if (mode === 'development') {
+    try {
+      const { componentTagger } = require('lovable-tagger');
+      plugins.push(componentTagger());
+    } catch (e) {
+      console.log('lovable-tagger not found, skipping...');
+    }
+  }
+  
   return {
-    // Use relative base path for GitHub Pages
     base: env.NODE_ENV === 'production' ? '/' : '/',
     
     server: {
@@ -18,10 +29,7 @@ export default defineConfig(({ mode }) => {
       port: 8080,
     },
     
-    plugins: [
-      react(),
-      mode === 'development' && componentTagger(),
-    ].filter(Boolean),
+    plugins,
     
     resolve: {
       alias: {
@@ -36,7 +44,6 @@ export default defineConfig(({ mode }) => {
       sourcemap: true,
       rollupOptions: {
         output: {
-          // Ensure static assets are loaded correctly
           assetFileNames: 'assets/[name]-[hash][extname]',
           entryFileNames: 'assets/[name]-[hash].js',
           chunkFileNames: 'assets/[name]-[hash].js',
@@ -44,7 +51,6 @@ export default defineConfig(({ mode }) => {
       },
     },
     
-    // Environment variables to be available in the client
     define: {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
       'process.env.BASE_URL': JSON.stringify(env.NODE_ENV === 'production' ? '/' : '/')
