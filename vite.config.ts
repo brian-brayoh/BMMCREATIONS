@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: "/BMM/", // Update this to match your repository name
+  base: "/", // Changed to root for custom domain
   server: {
     host: "::",
     port: 8080,
