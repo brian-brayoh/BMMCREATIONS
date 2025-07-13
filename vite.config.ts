@@ -6,21 +6,6 @@ import path from "path";
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   
-  // Only import lovable-tagger if it exists
-  const plugins = [
-    react()
-  ];
-
-  // Add lovable-tagger only in development mode
-  if (mode === 'development') {
-    try {
-      const { componentTagger } = require('lovable-tagger');
-      plugins.push(componentTagger());
-    } catch (e) {
-      console.log('lovable-tagger not found, skipping...');
-    }
-  }
-  
   return {
     base: env.NODE_ENV === 'production' ? '/' : '/',
     
@@ -29,7 +14,7 @@ export default defineConfig(({ mode }) => {
       port: 8080,
     },
     
-    plugins,
+    plugins: [react()],
     
     resolve: {
       alias: {
