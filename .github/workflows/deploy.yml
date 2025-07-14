@@ -22,14 +22,16 @@ jobs:
           node-version: '20'
           cache: 'npm'
           
+      - name: Clean up package.json
+        run: |
+          # Remove lovable-tagger from package.json if it exists
+          npm pkg delete devDependencies.lovable-tagger || true
+          
       - name: Install dependencies (skip optional)
         run: npm ci --no-optional
         
       - name: Build
-        run: |
-          # Remove lovable-tagger from dependencies if it exists
-          npm remove lovable-tagger --save-dev || true
-          npm run build
+        run: npm run build
         
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
