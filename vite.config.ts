@@ -11,7 +11,7 @@ export default defineConfig(({ mode }) => {
   
   return {
     // Use relative base path for GitHub Pages
-    base: env.NODE_ENV === 'production' ? '/' : '/',
+    base: '/',
     
     server: {
       host: "::",
@@ -47,7 +47,7 @@ export default defineConfig(({ mode }) => {
     // Environment variables to be available in the client
     define: {
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
-      'process.env.BASE_URL': JSON.stringify(env.NODE_ENV === 'production' ? '/' : '/')
+      'process.env.BASE_URL': JSON.stringify('/')
     }
   };
 });
