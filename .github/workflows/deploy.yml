@@ -9,8 +9,6 @@ permissions:
   contents: read
   pages: write
   id-token: write
-  actions: write
-  deployments: write
 
 jobs:
   build-and-deploy:
@@ -48,25 +46,6 @@ jobs:
         with:
           path: 'dist/'
           
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: 'dist'
-          
-  deploy:
-    needs: build-and-deploy
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
