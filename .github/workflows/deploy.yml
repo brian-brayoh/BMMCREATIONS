@@ -6,15 +6,25 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
+  actions: write
+  deployments: write
 
 jobs:
   build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
     runs-on: ubuntu-latest
+    
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -26,8 +36,22 @@ jobs:
         run: npm ci
         
       - name: Build
-        run: npm run build
+        run: |
+          npm run build
+          touch dist/.nojekyll
         
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+        
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'dist/'
+          
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

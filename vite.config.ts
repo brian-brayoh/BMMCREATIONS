@@ -11,7 +11,7 @@ export default defineConfig(({ mode }) => {
   
   return {
     // Use relative base path for GitHub Pages
-    base: '/',
+    base: process.env.NODE_ENV === 'production' ? '/BMM/' : '/',
     
     server: {
       host: "::",
