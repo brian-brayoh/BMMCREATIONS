@@ -31,11 +31,12 @@ const Portfolio = () => {
       description: "Complete brand identity design and guidelines"
     },
     {
-      title: "Business Website",
+      title: "HER Shield",
       category: "Web Development",
       image: businessImage,
       icon: Monitor,
-      description: "Professional corporate website with modern design"
+      url: "https://hershield-safeguard-kenya-k9nc8s1jy-majorstanwachira5s-projects.vercel.app/",
+      description: "Blending innovation and safety to create digital experiences that protect, empower, and inspire confidence online."
     },
     {
       title: "Food Delivery App",
