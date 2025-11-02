@@ -7,7 +7,7 @@ const Footer = () => {
     { icon: Facebook, href: "#", label: "Facebook" },
     { icon: Twitter, href: "#", label: "Twitter" },
     { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" }
+    { icon: Linkedin, href: "https://www.linkedin.com/in/brian-muthomi-b4a032257/", label: "LinkedIn" }
   ];
 
   return (
@@ -33,11 +33,11 @@ const Footer = () => {
               </div>
               <div className="flex items-center">
                 <Phone className="w-5 h-5 mr-3 text-primary" />
-                <span className="text-background/80">+1 (555) 123-4567</span>
+                <span className="text-background/80">+254746404011</span>
               </div>
               <div className="flex items-center">
                 <MapPin className="w-5 h-5 mr-3 text-primary" />
-                <span className="text-background/80">New York, NY 10001</span>
+                <span className="text-background/80">NAirobi kenya, </span>
               </div>
             </div>
           </div>
@@ -97,7 +97,7 @@ const Footer = () => {
 
             {/* Copyright */}
             <p className="text-background/60 text-center md:text-right">
-              © 2024 BMM Creations. All rights reserved.
+              © 2025 BMM Creations. All rights reserved.
             </p>
           </div>
         </div>
